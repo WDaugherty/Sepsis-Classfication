@@ -14,7 +14,7 @@ pipeline: this directory includes the pipeline for training and testing the deep
 * visualization: includes scripts for visualizing the ECG signals and the predictions of the models.
 * tests: includes unit tests and integration tests for the pipeline.
 * docs: includes the documentation for the project, including the project proposal, the final report, and the technical documentation.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- Usage -->
 ## Usage
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ```sh
 python pipeline/modeling/train_ecg_classification.py --data_path data/mit-bih-arrhythmia-database-1.0.0/
 ```
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <!-- Documentation -->
@@ -45,7 +45,7 @@ The documentation for the project can be found in the docs directory. It include
 * final_report.pdf: the final report of the project, including the methodology, results, and conclusions.
 * technical_documentation.md: technical documentation for the pipeline, including the directory structure, data pre-processing, feature extraction, model architecture, training, and evaluation.
 * README.md: this README file.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <!-- Tests -->
@@ -55,9 +55,8 @@ To run the tests for the pipeline, run the following command:
 ```sh
 pytest
 ```
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- License -->
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
