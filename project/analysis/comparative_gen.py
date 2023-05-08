@@ -7,13 +7,8 @@ import torch.nn as nn
 import torch.optim as optim
 import scipy.stats as stats
 
-# GAN function: generate_synthetic_data_gan
-# The GAN code provided earlier in the conversation.
-# ...
-
-# Rule-based function: generate_synthetic_data_rule_based
-# The rule-based code provided earlier in the conversation.
-# ...
+from smote_gan import smote_gan
+from autoencoder import generate_autoencoder_data
 
 # MCMC function: generate_synthetic_data_mcmc
 def generate_synthetic_data_mcmc(target_dist, proposal_std, n_samples, initial_state=0):

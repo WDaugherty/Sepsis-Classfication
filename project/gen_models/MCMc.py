@@ -25,6 +25,7 @@ def metropolis_hastings(target_dist, proposal_std, n_samples, initial_state=0):
     acceptance_rate = acceptance_count / n_samples
     return samples, acceptance_rate
 
+
 # Generate synthetic data using Metropolis-Hastings algorithm
 n_samples = 10000
 proposal_std = 2

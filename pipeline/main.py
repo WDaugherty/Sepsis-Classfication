@@ -66,7 +66,7 @@ def main():
 
     # Merge the admission and patient data based on the patient ID
     merged_df = pd.merge(admissions_df, patients_df, on='subject_id')
-    
+
     # Filter the merged dataset to include only the columns of interest
     merged_df = merged_df[['subject_id', 'hadm_id', 'admittime', 'dob', 'gender']]
 
@@ -77,9 +77,9 @@ def main():
     # Save the merged dataframe to pipeline/data_preprocessing/data/processed_data
     merged_df.to_csv('pipeline/data_preprocessing/data/processed_data/merged_data.csv', index=False)
 
-
     # Save the merged dataframe to pipeline/data_preprocessing/data/processed_data
     merged_df.to_csv('pipeline/data_preprocessing/data/processed_data/merged_data.csv', index=False)
+
 if __name__ == '__main__':
     main()
 
