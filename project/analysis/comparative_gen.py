@@ -75,4 +75,4 @@ def plot_data(real_data, gan_data, rule_based_data, mcmc_data):
     plt.tight_layout()
     plt.show()
 
-plot_data(real_data, gan_synthetic_data,
+plot_data(real_data, gan_synthetic_data, rule_based_synthetic_data, mcmc_synthetic_data)
