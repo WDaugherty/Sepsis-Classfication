@@ -16,4 +16,4 @@ typing_extensions
 hypothesis == 6.54
 imbalanced-learn == 0.8.1
 pyro-ppl
-
+seaborn == 0.11.2
