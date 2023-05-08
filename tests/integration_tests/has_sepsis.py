@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from your_module import has_sepsis, preprocess_data
+from pipeline import has_sepsis, preprocess_data
 
 def test_integration_has_sepsis_preprocess_data():
     raw_data = pd.DataFrame({

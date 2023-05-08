@@ -2,4 +2,4 @@
 venv/
 
 # Ignore the project data directory
-pipeline/data_preprocessing/data/
+pipeline/data/

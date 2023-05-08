@@ -14,3 +14,5 @@ pytest-env
 pytest-runner == 5.2
 typing_extensions
 hypothesis == 6.54
+imbalanced-learn == 0.8.1
+

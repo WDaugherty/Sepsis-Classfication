@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import re
 import pipeline
-from pipeline.data_preprocessing.process_data import process_header_files
+from pipeline.data.process_data import process_header_files
 import sys
 sys.path.append("pipeline")
 
