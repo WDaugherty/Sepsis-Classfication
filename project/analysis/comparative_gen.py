@@ -7,8 +7,8 @@ import torch.nn as nn
 import torch.optim as optim
 import scipy.stats as stats
 
-from smote_gan import smote_gan
-from autoencoder import generate_autoencoder_data
+from gen_models.smote_gan import smote_gan
+from gen_models.autoencoder import generate_autoencoder_data
 
 # MCMC function: generate_synthetic_data_mcmc
 def generate_synthetic_data_mcmc(target_dist, proposal_std, n_samples, initial_state=0):

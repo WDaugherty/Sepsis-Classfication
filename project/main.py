@@ -11,14 +11,14 @@ import re
 
 
 #Calls the subfucntions from the other modules
-from smote_gan import smote_gan
-from autoencoder import generate_autoencoder_data
-from Flow_Models import *
-from MCMc import *
-from VarEncoders import *
+from gen_models.smote_gan import smote_gan
+from gen_models.autoencoder import generate_autoencoder_data
+from gen_models.Flow_Models import *
+from gen_models.MCMc import *
+from gen_models.VarEncoders import *
 #from LSTM import * NOT DONE YET
-from comparative_gen import *
-from ground_truth import *
+from analysis.comparative_gen import *
+from analysis.ground_truth_mimic import *
 
 #Defines the main function for the gen_models module that takes in the new_mimic.csv file from pipeline/data/proccessed_data
 def main():

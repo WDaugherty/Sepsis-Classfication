@@ -10,7 +10,7 @@ def load_local():
     # Define the file names for admissions, patients, and diagnosis CSV.gz files
     admissions_file = 'ADMISSIONS.csv (1).gz'
     patients_file = 'PATIENTS.csv (1).gz'
-    diagnosis_file = 'D_ICD_DIAGNOSES.csv (1).gz'
+    diagnosis_file = 'DIAGNOSES_ICD.csv.gz'
 
 
     # Create output directory if it doesn't exist
@@ -25,7 +25,7 @@ def load_local():
     # Save data to output directory
     admissions_output_file_path = os.path.join(output_path, 'ADMISSIONS.csv')
     patients_output_file_path = os.path.join(output_path, 'PATIENTS.csv')
-    diagnosis_output_file_path = os.path.join(output_path, 'D_ICD_DIAGNOSES.csv')
+    diagnosis_output_file_path = os.path.join(output_path, 'DIAGNOSES_ICD.csv')
 
     admissions_data.to_csv(admissions_output_file_path, index=False)
     patients_data.to_csv(patients_output_file_path, index=False)

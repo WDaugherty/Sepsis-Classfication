@@ -1,11 +1,11 @@
 import pandas as pd
 
-def has_sepsis(icd9_codes):
+def has_sepsis(df, sepsis_codes):
     """
     Check if a list of ICD-9 codes includes any codes for sepsis.
     """
-    sepsis_codes = ['99591', '99592', '78552']
-    return int(any(code in sepsis_codes for code in icd9_codes))
+    df['has_sepsis'] = df['ICD9_CODE'].astype(str).isin(sepsis_codes).astype(int)
+    return df
 
 def preprocess_data(data):
     """
