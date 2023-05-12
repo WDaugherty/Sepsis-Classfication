@@ -65,8 +65,8 @@ def generate_synthetic_data(data, n_samples):
     optimizer_D = optim.Adam(discriminator.parameters(), lr=0.0002, betas=(0.5, 0.999))
 
     # Train the GAN model
-    batch_size = 32
-    epochs = 1000
+    batch_size = 8
+    epochs = 100
     for epoch in range(epochs):
         real_data = torch.tensor(data.sample(n=batch_size).values, dtype=torch.float32)
         real_labels = torch.ones((batch_size, 1))
@@ -137,6 +137,15 @@ def smote_gan(data, target_column, n_samples):
 
     # Apply SMOTE
     smote = SMOTE()
+
+    #Test data
+    print("X shape:", X.shape)
+    print("y shape:", y.shape)
+    print("X head:", X.head())
+    print("y head:", y.head())
+    print("Target column value counts:", y.value_counts())
+
+
     X_resampled, y_resampled = smote.fit_resample(X, y)
 
     # Create new DataFrame with SMOTE-resampled data

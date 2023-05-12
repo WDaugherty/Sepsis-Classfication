@@ -20,20 +20,22 @@ def main():
     Calls the various synthethic generation techniques and plots the results
     """
     #Loads in the data
-    df = pd.read_csv("pipeline/data/processed_data/merged.csv")
+    df = pd.read_csv("pipeline/data/processed_data/master_df_2.csv")
+
+    #Drops the columns that are not needed
+    df = df.drop(columns=[col for col in df.columns if 'left' in col or df[col].count() == 0])
+
+    #Prints the info of the data
+    #df.info()
 
     # Preprocess the data
     df = preprocess_data(df)
 
-    # Randomly sample the data
-    sample_size = 10
-    random_state = 42
-    df_sampled = sample_data(df, sample_size, random_state=random_state)
 
     #Calls the generate smote_gan function from the smote_gan module
     smote_df = smote_gan(df,'has_sepsis', 1000)
 
-
+    # Plot original data and synthetic data
     plot_original_vs_synthetic_gan(df, smote_df, 'has_sepsis')
 
     #Calls the mcmc function from the MCMc module

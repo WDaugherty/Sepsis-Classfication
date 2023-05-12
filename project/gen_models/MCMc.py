@@ -42,7 +42,7 @@ def generate_synthetic_data_mcmc(df, target_column):
     p = np.mean(has_sepsis_data)
 
     # Generate synthetic data using Metropolis-Hastings algorithm
-    n_samples = 10000
+    n_samples = 10
     proposal_std = 2
     initial_state = 0
     distribution = 'binary'
