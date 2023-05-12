@@ -11,40 +11,37 @@ import re
 
 
 #Calls the subfucntions from the other modules
-from gen_models.smote_gan import smote_gan
-from gen_models.autoencoder import generate_autoencoder_data
-from gen_models.Flow_Models import *
-from gen_models.MCMc import *
-from gen_models.VarEncoders import *
-#from LSTM import * NOT DONE YET
-from analysis.comparative_gen import *
-from analysis.ground_truth_mimic import *
-
+from preprocess_data import preprocess_data, sample_data
+from gen_models.smote_gan import smote_gan, plot_original_vs_synthetic_gan
+from gen_models.MCMc import mcmc, plot_original_vs_synthetic_mcmc
 #Defines the main function for the gen_models module that takes in the new_mimic.csv file from pipeline/data/proccessed_data
 def main():
+    """
+    Calls the various synthethic generation techniques and plots the results
+    """
     #Loads in the data
-    df = pd.read_csv("pipeline/data/processed_data/new_mimic.csv")
+    df = pd.read_csv("pipeline/data/processed_data/merged.csv")
+
+    # Preprocess the data
+    df = preprocess_data(df)
+
+    # Randomly sample the data
+    sample_size = 10
+    random_state = 42
+    df_sampled = sample_data(df, sample_size, random_state=random_state)
 
     #Calls the generate smote_gan function from the smote_gan module
-    smote_gan(df)
+    smote_df = smote_gan(df,'has_sepsis', 1000)
 
-    #Calls the generate autoencoder function from the autoencoder module
-    generate_autoencoder_data(df)
 
-    #Calls the generate_flow_model function from the Flow_Models module
-    generate_flow_model(df)
+    plot_original_vs_synthetic_gan(df, smote_df, 'has_sepsis')
 
-    #Calls the generate_mcmc function from the MCMc module
-    generate_mcmc(df)
+    #Calls the mcmc function from the MCMc module
+    mcmc_df = mcmc(df,'has_sepsis')
 
-    #Calls the generate_var_encoders function from the VarEncoders module
-    generate_var_encoders(df)
+    # Plot original data and synthetic data
+    plot_original_vs_synthetic_mcmc(df, mcmc_df, 'has_sepsis')
 
-    #Calls the generate_comparative_gen function from the comparative_gen module
-    generate_comparative_gen(df)
 
-    #Calls the generate_ground_truth function from the ground_truth module
-    generate_ground_truth(df)
-
-    #Calls the generate_lstm function from the LSTM module
-    generate_lstm(df) #NOT DONE YET
+if __name__ == '__main__': 
+    main()

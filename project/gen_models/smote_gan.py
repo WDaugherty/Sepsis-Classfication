@@ -6,6 +6,7 @@ import torch.optim as optim
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
+import matplotlib.pyplot as plt
 
 # Provided GAN code goes here
 def generate_synthetic_data(data, n_samples):
@@ -108,6 +109,26 @@ def generate_synthetic_data(data, n_samples):
     synthetic_data['signal_length'] = synthetic_data['signal_length'].abs().astype(int)
 
     return synthetic_data  # Add this line
+
+def plot_original_vs_synthetic_gan(original_data, synthetic_data, target_column):
+    fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+    
+    original_counts = original_data[target_column].value_counts(normalize=True)
+    synthetic_counts = synthetic_data[target_column].value_counts(normalize=True)
+    
+    axes[0].bar(original_counts.index, original_counts.values, alpha=0.5, label="Original Data")
+    axes[1].bar(synthetic_counts.index, synthetic_counts.values, alpha=0.5, label="Synthetic Data")
+    
+    axes[0].set_title("Original Data")
+    axes[1].set_title("Synthetic Data")
+    axes[0].set_ylabel("Proportion")
+    axes[1].set_ylabel("Proportion")
+    
+    for ax in axes:
+        ax.set_xlabel(target_column)
+        ax.legend()
+    
+    plt.show()
 
 def smote_gan(data, target_column, n_samples):
     # Split data into features and target
