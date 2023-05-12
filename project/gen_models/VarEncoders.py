@@ -9,7 +9,7 @@ import numpy as np
 class VAE(nn.Module):
     def __init__(self, input_dim, latent_dim):
         super(VAE, self).__init__()
-        self.latent_dim = latent_dim  # Store latent_dim as an instance variable
+        self.latent_dim = latent_dim
         self.encoder = nn.Sequential(
             nn.Linear(input_dim, 128),
             nn.ReLU(),
@@ -29,7 +29,7 @@ class VAE(nn.Module):
 
     def forward(self, x):
         h = self.encoder(x)
-        mu, logvar = h[:, :self.latent_dim], h[:, self.latent_dim:]  # Use self.latent_dim
+        mu, logvar = h[:, :self.latent_dim], h[:, self.latent_dim:]
         z = self.reparameterize(mu, logvar)
         x_recon = self.decoder(z)
         return x_recon, mu, logvar
@@ -49,7 +49,7 @@ def train_vae(data, latent_dim, epochs=1000, batch_size=32, lr=0.001):
 
     for epoch in range(epochs):
         idx = torch.randint(0, data_tensor.size(0), (batch_size,))
-        batch = data_tensor[idx]  # Use randomly selected batch
+        batch = data_tensor[idx]
         optimizer.zero_grad()
         recon_batch, mu, logvar = model(batch)
         loss = vae_loss(recon_batch, batch, mu, logvar)
@@ -62,13 +62,20 @@ def train_vae(data, latent_dim, epochs=1000, batch_size=32, lr=0.001):
     return model
 
 
-def generate_vae_data(model, n_samples):
+def generate_vae_data(model, original_data, n_samples):
     latent_dim = model.latent_dim
     noise = torch.randn(n_samples, latent_dim)
     synthetic_data = model.decoder(noise).detach().numpy()
-    num_columns = synthetic_data.shape[1]
-    synthetic_data = pd.DataFrame(synthetic_data, columns=[f"Feature_{i}" for i in range(num_columns)])  # Specify column names
+
+    synthetic_columns = original_data.columns[:-1]
+    synthetic_data = pd.DataFrame(synthetic_data, columns=synthetic_columns)
+
+    target_column_name = original_data.columns[-1]
+    target_column = original_data[target_column_name]
+    synthetic_data[target_column_name] = target_column.values
+
     return synthetic_data
+
 
 
 
@@ -96,5 +103,5 @@ def vae_plot(original_data, synthetic_data, target_column):
 def vae(data, target_column, latent_dim=10, epochs=1000, batch_size=32, lr=0.001):
     # Autoencoder function to generate and plot synthetic data
     model = train_vae(data, latent_dim, epochs, batch_size, lr)
-    synthetic_data = generate_vae_data(model, n_samples=len(data))
+    synthetic_data = generate_vae_data(model,data, n_samples=len(data))
     vae_plot(data, synthetic_data, target_column)
