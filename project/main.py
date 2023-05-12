@@ -11,9 +11,13 @@ import re
 
 
 #Calls the subfucntions from the other modules
-from preprocess_data import preprocess_data, sample_data
-from gen_models.smote_gan import smote_gan, plot_original_vs_synthetic_gan
-from gen_models.MCMc import mcmc, plot_original_vs_synthetic_mcmc
+from preprocess_data import preprocess_data
+from gen_models.smote_gan import smote_gan
+from gen_models.MCMc import mcmc
+from gen_models.Flow_Models import flow
+from gen_models.autoencoder import autoencoder
+from gen_models.VarEncoders import vae
+
 #Defines the main function for the gen_models module that takes in the new_mimic.csv file from pipeline/data/proccessed_data
 def main():
     """
@@ -31,19 +35,21 @@ def main():
     # Preprocess the data
     df = preprocess_data(df)
 
-
     #Calls the generate smote_gan function from the smote_gan module
-    smote_df = smote_gan(df,'has_sepsis', 1000)
+    #smote_df = smote_gan(df,'has_sepsis', 1000)
 
-    # Plot original data and synthetic data
-    plot_original_vs_synthetic_gan(df, smote_df, 'has_sepsis')
 
     #Calls the mcmc function from the MCMc module
-    mcmc_df = mcmc(df,'has_sepsis')
+    #mcmc_df = mcmc(df,'has_sepsis')
 
-    # Plot original data and synthetic data
-    plot_original_vs_synthetic_mcmc(df, mcmc_df, 'has_sepsis')
+    #Calls the flow function from the Flow_Models module
+    #flow_df = flow(df,'has_sepsis')
 
+    #Calls the autoencoder function from the autoencoder module
+    #autoencoder_df = autoencoder(df,'has_sepsis')
 
+    #Calls the vae function from the VarEncoders module
+    vae_df = vae(df,'has_sepsis')
+    
 if __name__ == '__main__': 
     main()

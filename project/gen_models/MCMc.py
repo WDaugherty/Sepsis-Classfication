@@ -49,6 +49,7 @@ def generate_synthetic_data_mcmc(df, target_column):
     samples, acceptance_rate = metropolis_hastings(target_distribution, proposal_std, n_samples, distribution, p, initial_state)
 
     synthetic_data = pd.DataFrame(samples, columns=[target_column])
+    synthetic_data[target_column] = synthetic_data[target_column].astype('int64')
 
     return synthetic_data
 

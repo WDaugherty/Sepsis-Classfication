@@ -9,7 +9,7 @@ from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 
 # Provided GAN code goes here
-def generate_synthetic_data(data, n_samples):
+def generate_synthetic_data(data, target_column, n_samples):
     # Define the generator model
     # Define the generator model
     class Generator(nn.Module):
@@ -105,10 +105,16 @@ def generate_synthetic_data(data, n_samples):
     # Convert synthetic samples to pandas DataFrame
     synthetic_data = pd.DataFrame(synthetic_samples, columns=data.columns)
 
+    # Clip has_sepsis values to be within the range [0, 1]
+    synthetic_data[target_column] = np.clip(synthetic_data[target_column], 0, 1)
+
+    # Convert has_sepsis values to integers
+    synthetic_data[target_column] = synthetic_data[target_column].astype(int)
+
     # Make sure signal_length is a positive integer value
     synthetic_data['signal_length'] = synthetic_data['signal_length'].abs().astype(int)
 
-    return synthetic_data  # Add this line
+    return synthetic_data
 
 def plot_original_vs_synthetic_gan(original_data, synthetic_data, target_column):
     fig, axes = plt.subplots(1, 2, figsize=(10, 5))
@@ -138,20 +144,12 @@ def smote_gan(data, target_column, n_samples):
     # Apply SMOTE
     smote = SMOTE()
 
-    #Test data
-    print("X shape:", X.shape)
-    print("y shape:", y.shape)
-    print("X head:", X.head())
-    print("y head:", y.head())
-    print("Target column value counts:", y.value_counts())
-
-
     X_resampled, y_resampled = smote.fit_resample(X, y)
 
     # Create new DataFrame with SMOTE-resampled data
     resampled_data = pd.concat([X_resampled, y_resampled], axis=1)
 
     # Apply GAN to generate synthetic data
-    synthetic_data = generate_synthetic_data(resampled_data, n_samples)
+    synthetic_data = generate_synthetic_data(resampled_data,target_column, n_samples)
 
     return synthetic_data
